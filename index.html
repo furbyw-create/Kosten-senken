@@ -25,7 +25,6 @@
 
 <section class="hero" id="top">
   <div class="wrap hero-inner">
-    <div id="referral-banner" class="referral-banner" hidden></div>
     <div class="split-clock">⏱ Live-Split <span id="stopwatch">00:00.0</span></div>
     <h1>Du gibst nochmal richtig Gas. <em>Deine Finanzen halten mit.</em></h1>
     <p class="lede">Ich bin Fabienne – deine Finanz-Coachin aus Köln. Ich sorge dafür, dass dein Geld dich trägt statt bremst, damit mehr Kraft für das bleibt, was dich wirklich antreibt.</p>
@@ -242,44 +241,28 @@
 </footer>
 
 <script>
-  // Empfehlungs-Personalisierung: ?r=CODE in der URL
-  // Der Name wird live über die eigene Vercel-Funktion /api/lookup abgefragt.
-  // Die eigentliche Zuordnung Code→Name liegt NUR in der Vercel Environment
-  // Variable REFERRALS_JSON (siehe Vercel-Dashboard), nie im Git-Repo.
+  // Empfehlungs-Code-Weiterleitung: ?ref=CODE in der URL.
+  // Der Code wird NUR durchgereicht (WhatsApp-Text, Calendly-Zusatzfrage) –
+  // es findet keinerlei Auflösung zu einem Namen statt, weder hier noch auf
+  // einem Server. Die Zuordnung Code↔Name existiert ausschließlich in der
+  // privaten PDF, die Fabienne selbst verwaltet, nie im Code oder im Repo.
   (function(){
     const params = new URLSearchParams(window.location.search);
-    const code = params.get('r');
+    const code = params.get('ref');
     if(!code) return;
 
-    fetch('/api/lookup?code=' + encodeURIComponent(code))
-      .then(res => res.json())
-      .then(data => {
-        const name = data && data.name;
-        if(!name) return;
+    const wa = document.getElementById('whatsapp-btn');
+    if(wa){
+      const msg = 'Hallo Fabienne, ich wurde empfohlen (Code: ' + code + ') und würde dich gern kennenlernen.';
+      wa.href = 'https://wa.me/4915678288104?text=' + encodeURIComponent(msg);
+    }
 
-        // Persönliche Begrüßung im Hero
-        const banner = document.getElementById('referral-banner');
-        if(banner){
-          banner.textContent = '👋 Du wurdest von ' + name + ' empfohlen – schön, dass du da bist!';
-          banner.hidden = false;
-        }
-
-        // WhatsApp-Button: Name in die vorausgefüllte Nachricht einbauen
-        const wa = document.getElementById('whatsapp-btn');
-        if(wa){
-          const msg = 'Hallo Fabienne, ich wurde von ' + name + ' empfohlen und würde dich gern kennenlernen.';
-          wa.href = 'https://wa.me/4915678288104?text=' + encodeURIComponent(msg);
-        }
-
-        // Calendly-Button: Name als Antwort auf "Wer hat dich empfohlen?" vorausfüllen
-        // Hinweis: a1 = erste Zusatzfrage im Calendly-Termin. Falls die Frage nicht an
-        // erster Stelle steht, a1 in a2/a3 usw. anpassen (Reihenfolge wie in Calendly).
-        const cal = document.getElementById('calendly-btn');
-        if(cal){
-          cal.href = cal.href + '?a1=' + encodeURIComponent(name);
-        }
-      })
-      .catch(() => { /* API nicht erreichbar: Seite funktioniert trotzdem normal weiter */ });
+    // a1 = erste Zusatzfrage im Calendly-Termin ("Wer hat dich empfohlen?").
+    // Falls die Frage nicht an erster Stelle steht, a1 in a2/a3 usw. anpassen.
+    const cal = document.getElementById('calendly-btn');
+    if(cal){
+      cal.href = cal.href + '?a1=' + encodeURIComponent(code);
+    }
   })();
 </script>
 <script>

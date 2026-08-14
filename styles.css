@@ -238,13 +238,6 @@
   padding:20px 24px; border-radius:var(--radius); font-size:14px; color:var(--ink-dim); max-width:760px; margin-bottom:48px;
 }
 
-/* ===== REFERRAL BANNER ===== */
-.referral-banner{
-  display:inline-flex; align-items:center; gap:10px; background:var(--bib); color:var(--white);
-  font-weight:700; font-size:14px; padding:12px 20px; border-radius:var(--radius); margin-bottom:24px;
-}
-.referral-banner[hidden]{display:none;}
-
 /* ===== COOKIE CONSENT BANNER ===== */
 #cookie-banner{
   position:fixed; left:0; right:0; bottom:0; z-index:999;
