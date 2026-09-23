@@ -287,6 +287,29 @@
 .footer-cookie-link{background:none; border:none; padding:0; margin:0; font:inherit; color:var(--chalk-dim); text-decoration:underline; cursor:pointer; display:block;}
 .footer-cookie-link:hover{color:var(--chalk);}
 
+/* ===== PROMO BANNER (zertifizierte Beratung) ===== */
+.promo-banner{
+  background:#C8102E; color:#fff; overflow:hidden; position:relative;
+  border-top:4px solid #8F0B20; border-bottom:4px solid #8F0B20;
+  box-shadow:0 2px 12px rgba(0,0,0,0.2);
+}
+.promo-track{display:flex; width:max-content; animation:promo-scroll 26s linear infinite;}
+.promo-group{display:flex; align-items:center; flex-shrink:0; padding:16px 0;}
+.promo-group span{
+  font-family:var(--mono); font-weight:800; font-size:14px; letter-spacing:0.04em;
+  text-transform:uppercase; white-space:nowrap; padding:0 18px;
+}
+.promo-group .sep{opacity:0.55; padding:0 4px;}
+.promo-banner:hover .promo-track{animation-play-state:paused;}
+@keyframes promo-scroll{
+  from{transform:translateX(0);}
+  to{transform:translateX(-50%);}
+}
+@media(max-width:640px){
+  .promo-group span{font-size:12px; padding:0 12px;}
+  .promo-group{padding:13px 0;}
+}
+
 .wa-float{
   position:fixed; right:24px; bottom:24px; z-index:999;
   width:58px; height:58px; border-radius:50%;
