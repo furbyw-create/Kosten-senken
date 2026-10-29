@@ -50,7 +50,6 @@
   .brand{position:absolute; left:0; right:0; top:180px; text-align:center;
          font-size:24px; font-weight:700; letter-spacing:.18em; opacity:0;}
 
-  .step{position:absolute; top:236px; right:70px; font-size:24px; font-weight:700; opacity:.7; letter-spacing:.1em;}
   .next{margin-top:18px; font-size:30px; font-weight:700; text-align:center;}
   .next b{color:#14E0E0;}
   h2{margin-top:34px; text-align:center; font-weight:900; font-size:88px; line-height:1.04;
